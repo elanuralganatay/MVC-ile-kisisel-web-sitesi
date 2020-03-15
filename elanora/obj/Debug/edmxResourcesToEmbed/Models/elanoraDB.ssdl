@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="elanoraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Etiketler">
+    <Key>
+      <PropertyRef Name="Eid" />
+    </Key>
+    <Property Name="Eid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EtiketAdi" Type="nvarchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EtiketMakale">
+    <Key>
+      <PropertyRef Name="Makaleid" />
+      <PropertyRef Name="Etiketid" />
+    </Key>
+    <Property Name="Makaleid" Type="int" Nullable="false" />
+    <Property Name="Etiketid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kategoriler">
+    <Key>
+      <PropertyRef Name="Kid" />
+    </Key>
+    <Property Name="Kid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KategoriAdi" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Makaleler">
+    <Key>
+      <PropertyRef Name="Mid" />
+    </Key>
+    <Property Name="Mid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Baslik" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Icerik" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tarih" Type="date" Nullable="false" />
+    <Property Name="KategoriId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Uyeler">
+    <Key>
+      <PropertyRef Name="Uid" />
+    </Key>
+    <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Uadi" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="UAd" Type="nvarchar" MaxLength="20" />
+    <Property Name="USoyad" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Yorumlar">
+    <Key>
+      <PropertyRef Name="Yid" />
+    </Key>
+    <Property Name="Yid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YorumIcerik" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Uyeid" Type="int" Nullable="false" />
+    <Property Name="Makaleid" Type="int" Nullable="false" />
+    <Property Name="Tarih" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_EtiketMakale_Etiketler">
+    <End Role="Etiketler" Type="Self.Etiketler" Multiplicity="1" />
+    <End Role="EtiketMakale" Type="Self.EtiketMakale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Etiketler">
+        <PropertyRef Name="Eid" />
+      </Principal>
+      <Dependent Role="EtiketMakale">
+        <PropertyRef Name="Etiketid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EtiketMakale_Makaleler">
+    <End Role="Makaleler" Type="Self.Makaleler" Multiplicity="1" />
+    <End Role="EtiketMakale" Type="Self.EtiketMakale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Makaleler">
+        <PropertyRef Name="Mid" />
+      </Principal>
+      <Dependent Role="EtiketMakale">
+        <PropertyRef Name="Makaleid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Makaleler_Kategoriler">
+    <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+    <End Role="Makaleler" Type="Self.Makaleler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategoriler">
+        <PropertyRef Name="Kid" />
+      </Principal>
+      <Dependent Role="Makaleler">
+        <PropertyRef Name="KategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yorumlar_Makaleler">
+    <End Role="Makaleler" Type="Self.Makaleler" Multiplicity="1" />
+    <End Role="Yorumlar" Type="Self.Yorumlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Makaleler">
+        <PropertyRef Name="Mid" />
+      </Principal>
+      <Dependent Role="Yorumlar">
+        <PropertyRef Name="Makaleid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yorumlar_Uyeler">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Yorumlar" Type="Self.Yorumlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="Uid" />
+      </Principal>
+      <Dependent Role="Yorumlar">
+        <PropertyRef Name="Uyeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="elanoraModelStoreContainer">
+    <EntitySet Name="Etiketler" EntityType="Self.Etiketler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EtiketMakale" EntityType="Self.EtiketMakale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Makaleler" EntityType="Self.Makaleler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Uyeler" EntityType="Self.Uyeler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Yorumlar" EntityType="Self.Yorumlar" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_EtiketMakale_Etiketler" Association="Self.FK_EtiketMakale_Etiketler">
+      <End Role="Etiketler" EntitySet="Etiketler" />
+      <End Role="EtiketMakale" EntitySet="EtiketMakale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EtiketMakale_Makaleler" Association="Self.FK_EtiketMakale_Makaleler">
+      <End Role="Makaleler" EntitySet="Makaleler" />
+      <End Role="EtiketMakale" EntitySet="EtiketMakale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Makaleler_Kategoriler" Association="Self.FK_Makaleler_Kategoriler">
+      <End Role="Kategoriler" EntitySet="Kategoriler" />
+      <End Role="Makaleler" EntitySet="Makaleler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yorumlar_Makaleler" Association="Self.FK_Yorumlar_Makaleler">
+      <End Role="Makaleler" EntitySet="Makaleler" />
+      <End Role="Yorumlar" EntitySet="Yorumlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yorumlar_Uyeler" Association="Self.FK_Yorumlar_Uyeler">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Yorumlar" EntitySet="Yorumlar" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

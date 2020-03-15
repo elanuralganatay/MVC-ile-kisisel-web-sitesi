@@ -1,0 +1,28 @@
+﻿@model IEnumerable<elanora.Models.Kategoriler>
+
+@{
+    ViewBag.Title = "KategoriListele";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            <h2>Kategoriler</h2>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.KategoriAdi)
+        </td>
+        <td>
+            @Html.ActionLink("Düzenle", "KategoriDuzenle", new { id=item.Kid }) |
+            @Html.ActionLink("Sil", "KategoriSil", new { id=item.Kid })
+        </td>
+    </tr>
+}
+
+</table>

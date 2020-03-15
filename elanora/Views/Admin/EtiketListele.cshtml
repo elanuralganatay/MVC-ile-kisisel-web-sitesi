@@ -1,0 +1,27 @@
+﻿@model IEnumerable<elanora.Models.Etiketler>
+
+@{
+    ViewBag.Title = "EtiketListele";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EtiketAdi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EtiketAdi)
+        </td>
+        <td>
+            @Html.ActionLink("Düzenle", "EtiketDuzenle", new { id=item.Eid }) |
+            @Html.ActionLink("Sil", "EtiketSil", new { id=item.Eid })
+        </td>
+    </tr>
+}
+
+</table>

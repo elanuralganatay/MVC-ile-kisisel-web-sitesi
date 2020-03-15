@@ -1,0 +1,32 @@
+﻿<div class="main-nav">
+    <div class="container">
+        <header class="group top-nav">
+            <nav class="navbar logo-w navbar-left">
+                <a class="logo" href="/Home/Index">elanora</a>
+            </nav>
+            <div class="navigation-toggle" data-tools="navigation-toggle" data-target="#navbar-1">
+                <span class="logo">elanora</span>
+            </div>
+            <nav id="navbar-1" class="navbar item-nav navbar-right">
+                <ul>
+                    <li class="active"><a href="@Url.Action("Index","Home")">Anasayfa</a></li>
+                    <li><a href="@Url.Action("About","Home")">Hakkımda</a></li>
+                    <li><a href="@Url.Action("Archive","Home")">Arşiv</a></li>
+                    <li><a href="@Url.Action("Contact","Home")">İletişim</a></li>
+
+                    @if (Session["username"] == null)
+                    {
+                        <li><a href="@Url.Action("Create", "Home")">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kayıt Ol</a></li>
+                        <li><a href="@Url.Action("LogIn", "Home")">Giriş Yap</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Profile", "Kullanici")">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Session["username"].ToString()</a></li>
+                        <li><a href="@Url.Action("LogOut", "Kullanici")">Çıkış Yap</a></li>
+                    }
+                </ul>
+            </nav>
+
+        </header>
+    </div>
+</div>

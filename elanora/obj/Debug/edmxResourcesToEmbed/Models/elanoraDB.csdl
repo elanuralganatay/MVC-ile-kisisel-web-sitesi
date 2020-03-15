@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="elanoraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Etiketler">
+    <Key>
+      <PropertyRef Name="Eid" />
+    </Key>
+    <Property Name="Eid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EtiketAdi" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Makaleler" Relationship="Self.EtiketMakale" FromRole="Etiketler" ToRole="Makaleler" />
+  </EntityType>
+  <EntityType Name="Kategoriler">
+    <Key>
+      <PropertyRef Name="Kid" />
+    </Key>
+    <Property Name="Kid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategoriAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Makaleler" Relationship="Self.FK_Makaleler_Kategoriler" FromRole="Kategoriler" ToRole="Makaleler" />
+  </EntityType>
+  <EntityType Name="Makaleler">
+    <Key>
+      <PropertyRef Name="Mid" />
+    </Key>
+    <Property Name="Mid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Baslik" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Icerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="KategoriId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kategoriler" Relationship="Self.FK_Makaleler_Kategoriler" FromRole="Makaleler" ToRole="Kategoriler" />
+    <NavigationProperty Name="Yorumlar" Relationship="Self.FK_Yorumlar_Makaleler" FromRole="Makaleler" ToRole="Yorumlar" />
+    <NavigationProperty Name="Etiketler" Relationship="Self.EtiketMakale" FromRole="Makaleler" ToRole="Etiketler" />
+  </EntityType>
+  <EntityType Name="Uyeler">
+    <Key>
+      <PropertyRef Name="Uid" />
+    </Key>
+    <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Uadi" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Sifre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UAd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="USoyad" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Yorumlar" Relationship="Self.FK_Yorumlar_Uyeler" FromRole="Uyeler" ToRole="Yorumlar" />
+  </EntityType>
+  <EntityType Name="Yorumlar">
+    <Key>
+      <PropertyRef Name="Yid" />
+    </Key>
+    <Property Name="Yid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YorumIcerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Uyeid" Type="Int32" Nullable="false" />
+    <Property Name="Makaleid" Type="Int32" Nullable="false" />
+    <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Makaleler" Relationship="Self.FK_Yorumlar_Makaleler" FromRole="Yorumlar" ToRole="Makaleler" />
+    <NavigationProperty Name="Uyeler" Relationship="Self.FK_Yorumlar_Uyeler" FromRole="Yorumlar" ToRole="Uyeler" />
+  </EntityType>
+  <Association Name="FK_Makaleler_Kategoriler">
+    <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+    <End Role="Makaleler" Type="Self.Makaleler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategoriler">
+        <PropertyRef Name="Kid" />
+      </Principal>
+      <Dependent Role="Makaleler">
+        <PropertyRef Name="KategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yorumlar_Makaleler">
+    <End Role="Makaleler" Type="Self.Makaleler" Multiplicity="1" />
+    <End Role="Yorumlar" Type="Self.Yorumlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Makaleler">
+        <PropertyRef Name="Mid" />
+      </Principal>
+      <Dependent Role="Yorumlar">
+        <PropertyRef Name="Makaleid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yorumlar_Uyeler">
+    <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+    <End Role="Yorumlar" Type="Self.Yorumlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uyeler">
+        <PropertyRef Name="Uid" />
+      </Principal>
+      <Dependent Role="Yorumlar">
+        <PropertyRef Name="Uyeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EtiketMakale">
+    <End Role="Etiketler" Type="Self.Etiketler" Multiplicity="*" />
+    <End Role="Makaleler" Type="Self.Makaleler" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="elanoraEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Etiketler" EntityType="Self.Etiketler" />
+    <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
+    <EntitySet Name="Makaleler" EntityType="Self.Makaleler" />
+    <EntitySet Name="Uyeler" EntityType="Self.Uyeler" />
+    <EntitySet Name="Yorumlar" EntityType="Self.Yorumlar" />
+    <AssociationSet Name="FK_Makaleler_Kategoriler" Association="Self.FK_Makaleler_Kategoriler">
+      <End Role="Kategoriler" EntitySet="Kategoriler" />
+      <End Role="Makaleler" EntitySet="Makaleler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yorumlar_Makaleler" Association="Self.FK_Yorumlar_Makaleler">
+      <End Role="Makaleler" EntitySet="Makaleler" />
+      <End Role="Yorumlar" EntitySet="Yorumlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yorumlar_Uyeler" Association="Self.FK_Yorumlar_Uyeler">
+      <End Role="Uyeler" EntitySet="Uyeler" />
+      <End Role="Yorumlar" EntitySet="Yorumlar" />
+    </AssociationSet>
+    <AssociationSet Name="EtiketMakale" Association="Self.EtiketMakale">
+      <End Role="Etiketler" EntitySet="Etiketler" />
+      <End Role="Makaleler" EntitySet="Makaleler" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

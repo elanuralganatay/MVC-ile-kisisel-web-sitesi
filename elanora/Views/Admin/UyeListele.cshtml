@@ -1,0 +1,51 @@
+﻿@model IEnumerable<elanora.Models.Uyeler>
+
+@{
+    ViewBag.Title = "UyeListele";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Yetkiler.YetkiAdi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uadi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sifre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UAd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.USoyad)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Yetkiler.YetkiAdi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uadi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sifre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UAd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.USoyad)
+        </td>
+        <td>
+            @Html.ActionLink("Sil", "UyeSil", new { id=item.Uid })
+        </td>
+    </tr>
+}
+
+</table>

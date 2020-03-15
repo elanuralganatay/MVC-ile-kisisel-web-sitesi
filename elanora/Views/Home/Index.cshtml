@@ -1,0 +1,27 @@
+﻿@model IEnumerable<elanora.Models.Makaleler>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@foreach (var item in Model)
+{
+    <div class="content">
+        <div class="container">
+            <!-- Post -->
+            <div class="post">
+                <h1>@Html.ActionLink(item.Baslik, "MakaleDetay", new { id = item.Mid })</h1>
+                <hr>
+                <div class="in-content">
+                    <p>
+                        <img class="right" src="/Content/img/@item.MakaleResim" alt="">
+                        @Html.DisplayFor(modelItem => item.Icerik)
+                    </p>
+                </div>
+            </div>
+            <!-- /post -->
+        </div>
+    </div>
+}

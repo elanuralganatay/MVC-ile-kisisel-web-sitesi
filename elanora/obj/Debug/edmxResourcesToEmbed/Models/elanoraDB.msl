@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="elanoraModelStoreContainer" CdmEntityContainer="elanoraEntities">
+    <EntitySetMapping Name="Etiketler">
+      <EntityTypeMapping TypeName="elanoraModel.Etiketler">
+        <MappingFragment StoreEntitySet="Etiketler">
+          <ScalarProperty Name="Eid" ColumnName="Eid" />
+          <ScalarProperty Name="EtiketAdi" ColumnName="EtiketAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategoriler">
+      <EntityTypeMapping TypeName="elanoraModel.Kategoriler">
+        <MappingFragment StoreEntitySet="Kategoriler">
+          <ScalarProperty Name="Kid" ColumnName="Kid" />
+          <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Makaleler">
+      <EntityTypeMapping TypeName="elanoraModel.Makaleler">
+        <MappingFragment StoreEntitySet="Makaleler">
+          <ScalarProperty Name="Mid" ColumnName="Mid" />
+          <ScalarProperty Name="Baslik" ColumnName="Baslik" />
+          <ScalarProperty Name="Icerik" ColumnName="Icerik" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uyeler">
+      <EntityTypeMapping TypeName="elanoraModel.Uyeler">
+        <MappingFragment StoreEntitySet="Uyeler">
+          <ScalarProperty Name="Uid" ColumnName="Uid" />
+          <ScalarProperty Name="Uadi" ColumnName="Uadi" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+          <ScalarProperty Name="UAd" ColumnName="UAd" />
+          <ScalarProperty Name="USoyad" ColumnName="USoyad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Yorumlar">
+      <EntityTypeMapping TypeName="elanoraModel.Yorumlar">
+        <MappingFragment StoreEntitySet="Yorumlar">
+          <ScalarProperty Name="Yid" ColumnName="Yid" />
+          <ScalarProperty Name="YorumIcerik" ColumnName="YorumIcerik" />
+          <ScalarProperty Name="Uyeid" ColumnName="Uyeid" />
+          <ScalarProperty Name="Makaleid" ColumnName="Makaleid" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EtiketMakale" TypeName="elanoraModel.EtiketMakale" StoreEntitySet="EtiketMakale">
+      <EndProperty Name="Etiketler">
+        <ScalarProperty Name="Eid" ColumnName="Etiketid" />
+      </EndProperty>
+      <EndProperty Name="Makaleler">
+        <ScalarProperty Name="Mid" ColumnName="Makaleid" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

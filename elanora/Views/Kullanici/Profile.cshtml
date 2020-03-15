@@ -1,0 +1,44 @@
+﻿@model elanora.Models.Uyeler
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.Uadi)</h2>
+
+<div>
+    <h4>  @Html.DisplayFor(model => model.Yetkiler.YetkiAdi)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Sifre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sifre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UAd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UAd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.USoyad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USoyad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Güncelle", "Edit", new { id = Model.Uid }) 
+    @Html.ActionLink("Geri Dön", "Index","Home")
+</p>

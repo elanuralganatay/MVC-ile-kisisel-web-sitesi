@@ -1,0 +1,22 @@
+﻿@model elanora.Models.Makaleler
+
+@{
+    ViewBag.Title = "MakaleDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="container">
+        <!-- Post -->
+        @*<div class="post">*@
+        <!-- Heading -->
+        <h3>@*@Html.DisplayFor(model => model.Kategoriler.KategoriAdi) >*@ @Html.DisplayFor(model => model.Baslik)</h3><!--burayı düzenle-->
+        <div class="in-content">
+            <p>
+                @Html.DisplayFor(model => model.Baslik)
+                <img class="right" src="/Content/img/@Model.MakaleResim" alt="">
+            </p>
+        </div>
+        @*</div>*@
+        <!-- /post -->
+    </div>
+</div>

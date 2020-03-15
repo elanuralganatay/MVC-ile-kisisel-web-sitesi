@@ -1,0 +1,47 @@
+﻿@model IEnumerable<elanora.Models.Makaleler>
+
+@{
+    ViewBag.Title = "MakaleListele";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Kategoriler.KategoriAdi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Baslik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Icerik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MakaleResim)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kategoriler.KategoriAdi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Baslik)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Icerik)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.MakaleResim)*@
+            <img src="/Content/img/@item.MakaleResim" width="100" height="100" />
+        </td>
+        <td>
+            @Html.ActionLink("Düzenle", "MakaleDuzenle", new { id = item.Mid }) |
+            @Html.ActionLink("Sil", "MakaleSil", new { id = item.Mid })
+        </td>
+    </tr>
+}
+
+</table>
